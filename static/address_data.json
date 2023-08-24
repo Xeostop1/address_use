@@ -1,0 +1,182 @@
+[
+  {
+    "street": "525 S Winchester Blvd",
+    "street2": "",
+    "city": "San Jose",
+    "state": "CA",
+    "zipcode": "95128",
+    "candidates": 10,
+    "match": "enhanced"
+  },
+  {
+    "street": "1600 Main St",
+    "street2": "",
+    "city": "Santa Monica",
+    "state": "CA",
+    "zipcode": "90401",
+    "candidates": 10,
+    "match": "enhanced"
+  },
+  {
+    "street": "1 Infinite Loop",
+    "street2": "",
+    "city": "Cupertino",
+    "state": "CA",
+    "zipcode": "95014",
+    "candidates": 10,
+    "match": "enhanced"
+  },
+  {
+    "street": "1111 Lincoln Rd",
+    "street2": "",
+    "city": "Miami Beach",
+    "state": "FL",
+    "zipcode": "33139",
+    "candidates": 10,
+    "match": "enhanced"
+  },
+  {
+    "street": "30 Rockefeller Plaza",
+    "street2": "",
+    "city": "New York",
+    "state": "NY",
+    "zipcode": "10112",
+    "candidates": 10,
+    "match": "enhanced"
+  },
+  {
+    "street": "200 5th Ave",
+    "street2": "",
+    "city": "New York",
+    "state": "NY",
+    "zipcode": "10010",
+    "candidates": 10,
+    "match": "enhanced"
+  },
+  {
+    "street": "262 5th Ave",
+    "street2": "",
+    "city": "New York",
+    "state": "NY",
+    "zipcode": "10001",
+    "candidates": 10,
+    "match": "enhanced"
+  },
+  {
+    "street": "10 E 21st St",
+    "street2": "",
+    "city": "New York",
+    "state": "NY",
+    "zipcode": "10010",
+    "candidates": 10,
+    "match": "enhanced"
+  },
+  {
+    "street": "1201 Elm St",
+    "street2": "",
+    "city": "Dallas",
+    "state": "TX",
+    "zipcode": "75270",
+    "candidates": 10,
+    "match": "enhanced"
+  },
+  {
+    "street": "9449 Henniker Way",
+    "street2": "",
+    "city": "Las Vegas",
+    "state": "NV",
+    "zipcode": "89148",
+    "candidates": 10,
+    "match": "enhanced"
+  },
+  {
+    "street": "1220 Sunset St",
+    "street2": "",
+    "city": "Longmont",
+    "state": "CO",
+    "zipcode": "80501",
+    "candidates": 10,
+    "match": "enhanced"
+  },
+  {
+    "street": "103 E Highland Ave",
+    "street2": "",
+    "city": "Ravenna",
+    "state": "OH",
+    "zipcode": "44266",
+    "candidates": 10,
+    "match": "enhanced"
+  },
+  {
+    "street": "1711 E Gude Dr",
+    "street2": "",
+    "city": "Rockville",
+    "state": "MD",
+    "zipcode": "20850",
+    "candidates": 10,
+    "match": "enhanced"
+  },
+  {
+    "street": "2202 Summit St",
+    "street2": "",
+    "city": "Columbus",
+    "state": "OH",
+    "zipcode": "43201",
+    "candidates": 10,
+    "match": "enhanced"
+  },
+  {
+    "street": "1333 N Kingsbury St",
+    "street2": "",
+    "city": "Chicago",
+    "state": "IL",
+    "zipcode": "60642",
+    "candidates": 10,
+    "match": "enhanced"
+  },
+  {
+    "street": "12650 Ingenuity Dr",
+    "street2": "",
+    "city": "Orlando",
+    "state": "FL",
+    "zipcode": "32826",
+    "candidates": 10,
+    "match": "enhanced"
+  },
+  {
+    "street": "6603 Inverness Glen Rd",
+    "street2": "",
+    "city": "Potomac",
+    "state": "MD",
+    "zipcode": "20854",
+    "candidates": 10,
+    "match": "enhanced"
+  },
+  {
+    "street": "1706 Washington Ave",
+    "street2": "",
+    "city": "Philadelphia",
+    "state": "PA",
+    "zipcode": "19146",
+    "candidates": 10,
+    "match": "enhanced"
+  },
+  {
+    "street": "203 Primrose St",
+    "street2": "",
+    "city": "Haverhill",
+    "state": "MA",
+    "zipcode": "01830",
+    "candidates": 10,
+    "match": "enhanced"
+  },
+  {
+    "street": "1228 S Grand Ave",
+    "street2": "",
+    "city": "Los Angeles",
+    "state": "CA",
+    "zipcode": "90015",
+    "candidates": 10,
+    "match": "enhanced"
+  }
+]
