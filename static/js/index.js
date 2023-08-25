@@ -1,13 +1,11 @@
 $(document).ready(function () {
-  // 주소 데이터 저장
   let fetchedAddresses = [];
-  // 이전 사용자 입력값 저장
   let previousInput = "";
-
-  // 타임아웃 ID 저장
   let timeoutId = null;
 
-  // 주소 데이터 요청 함수
+  const MIN_INPUT_LENGTH = 2; // 최소 입력 길이 설정
+  const DELAY_TIME_MS = 1000; // 딜레이 시간 설정 (1초)
+
   const getAddressData = function (input) {
     console.log("주소 데이터를 요청합니다: ", input);
     return $.ajax({
@@ -20,21 +18,22 @@ $(document).ready(function () {
     });
   };
 
-  // 화면 업데이트 함수
   const updateView = (data) => {
-    console.log("화면을 업데이트합니다.");
-
     $("#suggested-addresses-list").empty();
 
     if (data.error) {
       $("#suggested-addresses-list").append(`<li>${data.error}</li>`);
+
       return;
     }
 
     data.forEach(function (address) {
       const street = address.street;
+
       const city = address.city;
+
       const state = address.state;
+
       const zipcode = address.zipcode;
 
       let addressItem = $("<li>")
@@ -56,47 +55,57 @@ $(document).ready(function () {
 
     console.log(`사용자 입력 처리 - '${inputValue}'`);
 
-    if (!inputValue) {
+    if (!inputValue || inputValue.length < MIN_INPUT_LENGTH) {
       $("#suggested-addresses-list").empty();
+
       return;
     }
 
-    getAddressData(inputValue)
-      .done(function (data) {
-        if (!Array.isArray(data)) {
-          if (data.error) {
-            updateView(data);
-          } else {
-            console.error("API 응답 오류: 주소 데이터 배열이 아닙니다.", data);
+    timeoutId = setTimeout(() => {
+      getAddressData(inputValue)
+        .done(function (data) {
+          if (!Array.isArray(data)) {
+            if (data.error) {
+              updateView(data);
+            } else {
+              console.error(
+                "API 응답 오류 : 주소 데이터 배열이 아닙니다.",
+                data
+              );
+            }
+
+            return;
           }
 
-          return;
-        }
+          fetchedAddresses = data;
 
-        fetchedAddresses = data;
-        previousInput = inputValue;
+          previousInput = inputValue;
 
-        let inputWords = inputValue.toLowerCase().split(" ");
+          let inputWords = inputValue.toLowerCase().split(/\s+/);
 
-        let filteredAddresses = fetchedAddresses.filter((address) => {
-          let addressString =
-            `${address.street}${address.city}${address.state}`.toLowerCase();
+          console.log(`입력 단어 :${inputWords}`);
 
-          // 정규 표현식 생성
-          let regexPattern = new RegExp(inputWords.join(".*"), "i");
+          let filteredAddresses = fetchedAddresses.filter((address) => {
+            let addressString =
+              `${address.street} ${address.city} ${address.state}`.toLowerCase();
 
-          // match() 메서드를 이용해 매칭되는 주소 찾기
-          return addressString.match(regexPattern);
+            let isMatch = inputWords.every((word) =>
+              addressString
+                .split(" ")
+                .some((addressWord) => addressWord.startsWith(word))
+            );
+
+            console.log(`주소: '${addressString}', 일치: ${isMatch}`);
+
+            return isMatch;
+          });
+
+          updateView(filteredAddresses);
+        })
+
+        .fail(function (jqXHR, textStatus, errorThrown) {
+          console.error("API 호출에 실패했습니다.", errorThrown);
         });
-
-        updateView(filteredAddresses);
-      })
-      .fail(function (jqXHR, textStatus, errorThrown) {
-        console.log("API 호출에 실패했습니다.", errorThrown);
-      });
-
-    timeoutId = setTimeout(() => {
-      console.log("입력 대기중...");
-    }, 100);
+    }, DELAY_TIME_MS);
   });
 });
