@@ -3,17 +3,16 @@ $(document).ready(function () {
   let previousInput = "";
   let timeoutId = null;
 
-  const MIN_INPUT_LENGTH = 6; // 최소 입력 길이 설정
-  const DELAY_TIME_MS = 5000; // 딜레이 시간 설정 (1초)
+  const MIN_INPUT_LENGTH = 3; // 최소 입력 길이 설정
+  const DELAY_TIME_MS = 500; // 딜레이 시간 설정 (0.5초)
 
   const getAddressData = function (input) {
     console.log("주소 데이터를 요청합니다: ", input);
     return $.ajax({
-      url: "/search_address",
-      method: "POST",
+      url: "/autocomplete",
+      method: "GET",
       dataType: "json",
-      contentType: "application/json", // 추가
-      data: JSON.stringify({ query: input }), // 변경
+      data: { search: input },
     }).done(function () {
       console.log("주소 데이터 요청이 완료되었습니다.");
     });
@@ -28,15 +27,14 @@ $(document).ready(function () {
       return;
     }
 
-    data.forEach(function (address) {
-      const delivery_line_1 = address.delivery_line_1;
-      const last_line = address.last_line;
-      const zipcode = address.components.zipcode;
+    data.suggestions.forEach(function (address) {
+      const delivery_line_1 = address.street_line;
+      const last_line = `${address.city}, ${address.state} ${address.zipcode}`;
 
       let addressItem = $("<li>")
         .text(`${delivery_line_1}, ${last_line}`)
         .click(function () {
-          $("#zipcode").val(zipcode);
+          $("#zipcode").val(address.zipcode);
           $("#street").val(delivery_line_1);
           console.log(`${delivery_line_1}, ${last_line}`);
         });
@@ -60,7 +58,7 @@ $(document).ready(function () {
     timeoutId = setTimeout(() => {
       getAddressData(inputValue)
         .done(function (data) {
-          if (!Array.isArray(data)) {
+          if (!Array.isArray(data.suggestions)) {
             if (data.error) {
               updateView(data);
             } else {
@@ -73,21 +71,22 @@ $(document).ready(function () {
             return;
           }
 
-          fetchedAddresses = data;
+          fetchedAddresses = data.suggestions;
+
           previousInput = inputValue;
+
           let inputWordsSet = new Set(inputValue.toLowerCase().split(/\s+/));
           console.log(`입력 단어 :${[...inputWordsSet]}`);
+
           let filteredAddresses = fetchedAddresses.filter((address) => {
             let addressWordsSet = new Set(
               `${address.street}
-                     ${address.city}
-                     ${address.state}`
+  ${address.city}
+  ${address.state}`
                 .toLowerCase()
                 .split(/\s+/)
             );
 
-            // Check that every word in the input is present in the
-            // set of words from the current address.
             return [...inputWordsSet].every((word) =>
               addressWordsSet.has(word)
             );
@@ -95,7 +94,10 @@ $(document).ready(function () {
           updateView(filteredAddresses);
         })
         .fail(function (jqXHR, textStatus, errorThrown) {
-          console.error("API 호출에 실패했습니다.", errorThrown);
+          cconsole.error("API 호출에 실패했습니다. js error");
+          console.error("Error thrown: ", errorThrown);
+          console.error("Text status: ", textStatus);
+          console.log("js 호출실패 확인 필");
         });
     }, DELAY_TIME_MS);
   });

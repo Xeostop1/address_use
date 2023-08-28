@@ -10,10 +10,9 @@ $(document).ready(function () {
     console.log("주소 데이터를 요청합니다: ", input);
     return $.ajax({
       url: "/search_address",
-      method: "POST",
+      method: "GET",
       dataType: "json",
-      contentType: "application/json", // 추가
-      data: JSON.stringify({ query: input }), // 변경
+      data: { query: input },
     }).done(function () {
       console.log("주소 데이터 요청이 완료되었습니다.");
     });
@@ -29,16 +28,17 @@ $(document).ready(function () {
     }
 
     data.forEach(function (address) {
-      const delivery_line_1 = address.delivery_line_1;
-      const last_line = address.last_line;
-      const zipcode = address.components.zipcode;
+      const street = address.street;
+      const city = address.city;
+      const state = address.state;
+      const zipcode = address.zipcode;
 
       let addressItem = $("<li>")
-        .text(`${delivery_line_1}, ${last_line}`)
+        .text(`${street} ${city} ${state} (${zipcode})`)
         .click(function () {
           $("#zipcode").val(zipcode);
-          $("#street").val(delivery_line_1);
-          console.log(`${delivery_line_1}, ${last_line}`);
+          $("#street").val(`${street} ${city} ${state}`);
+          console.log(`${street} ${city} ${state} (${zipcode})`);
         });
 
       $("#suggested-addresses-list").append(addressItem);
