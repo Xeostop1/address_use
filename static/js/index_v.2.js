@@ -54,6 +54,7 @@ $(document).ready(function () {
 
     if (!inputValue || inputValue.length < MIN_INPUT_LENGTH) {
       $("#suggested-addresses-list").empty();
+
       return;
     }
 
@@ -77,28 +78,28 @@ $(document).ready(function () {
 
           previousInput = inputValue;
 
-          let inputWordsSet = new Set(inputValue.toLowerCase().split(/\s+/));
+          let inputWords = inputValue.toLowerCase().split(/\s+/);
 
-          console.log(`입력 단어 :${[...inputWordsSet]}`);
+          console.log(`입력 단어 :${inputWords}`);
 
           let filteredAddresses = fetchedAddresses.filter((address) => {
-            let addressWordsSet = new Set(
-              `${address.street}
-                     ${address.city}
-                     ${address.state}`
-                .toLowerCase()
-                .split(/\s+/)
+            let addressString =
+              `${address.street} ${address.city} ${address.state}`.toLowerCase();
+
+            let isMatch = inputWords.every((word) =>
+              addressString
+                .split(" ")
+                .some((addressWord) => addressWord.startsWith(word))
             );
 
-            // Check that every word in the input is present in the
-            // set of words from the current address.
-            return [...inputWordsSet].every((word) =>
-              addressWordsSet.has(word)
-            );
+            console.log(`주소: '${addressString}', 일치: ${isMatch}`);
+
+            return isMatch;
           });
 
           updateView(filteredAddresses);
         })
+
         .fail(function (jqXHR, textStatus, errorThrown) {
           console.error("API 호출에 실패했습니다.", errorThrown);
         });

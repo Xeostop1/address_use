@@ -16,6 +16,17 @@ body {
   padding-left: 20px;
   padding-right: 20px;
 }
+/* 주소검색 input */
+#street,
+#zipcode {
+  width: 300px;
+  height: 30px;
+  font-size: 1em;
+}
+#zipcode {
+  width: 150px;
+  margin-top: 20px;
+}
 #address-form {
   display: flex;
   flex-direction: column;
@@ -28,7 +39,7 @@ body {
   justify-content: space-between;
 }
 .input-container {
-  width: 45%;
+  width: 52%;
 }
 #suggested-addresses {
   width: 45%;
@@ -38,8 +49,10 @@ body {
   padding: 0;
   max-height: 100px;
   overflow-y: auto;
-  margin-top: 0.5rem;
+  /* margin-top: -0.1rem; */
   border-bottom: 1px solid #f9f7f7;
+  /* 수정 */
+  width: 295px;
 }
 #suggested-addresses ul li {
   margin-bottom: 10px;
