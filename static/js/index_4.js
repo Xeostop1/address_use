@@ -6,18 +6,19 @@ $(document).ready(function () {
   const MIN_INPUT_LENGTH = 6; // 최소 입력 길이 설정
   const DELAY_TIME_MS = 5000; // 딜레이 시간 설정 (1초)
 
-  const apiKey = "138657343210935212"; //클라이언트 쪽 key 값 세팅
-
   const getAddressData = function (input) {
     console.log("주소 데이터를 요청합니다: ", input);
     return $.ajax({
-      url: "/autocomplete",
-      method: "GET",
-      data: { search: input, api_key: apiKey },
+      url: "/search_address",
+      method: "POST",
+      dataType: "json",
+      contentType: "application/json", // 추가
+      data: JSON.stringify({ query: input }), // 변경
     }).done(function () {
       console.log("주소 데이터 요청이 완료되었습니다.");
     });
   };
+
   const updateView = (data) => {
     $("#suggested-addresses-list").empty();
 
