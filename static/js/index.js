@@ -14,9 +14,8 @@ $(document).ready(function () {
     const getAddressData = function (input) {
       console.log("주소 데이터를 요청합니다: ", input);
       return $.ajax({
-        url: "/autocomplete",
+        url: `https://us-autocomplete-pro.api.smarty.com/lookup?search=${input}&max_results=10&key=${apiKey}`,
         method: "GET",
-        data: { search: input, api_key: apiKey },
       }).done(function () {
         console.log("주소 데이터 요청이 완료되었습니다.");
       });
